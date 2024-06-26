@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+	  <AssemblyName>Bitvantage.$(MSBuildProjectName)</AssemblyName>
+	  <RootNamespace>Bitvantage</RootNamespace>
+	  <Title>Bitvantage.NumericRange</Title>
+	  <PackageProjectUrl>https://github.com/Bitvantage/NetworkPrimitives</PackageProjectUrl>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>network;networking;range</PackageTags>
+	  <VersionPrefix>1.0.0</VersionPrefix>
+	  <FileVersion>1.0.0</FileVersion>
+	  <AssemblyVersion>1.0.0</AssemblyVersion>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+	  <Description>Parse and manulipulate huge quantities of numeric ranges such as 40-70,90,95,300-700,5000</Description>
+
+  </PropertyGroup>
+
+</Project>
