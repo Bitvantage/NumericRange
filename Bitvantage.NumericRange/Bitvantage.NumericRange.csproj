@@ -5,10 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-	  <AssemblyName>Bitvantage.$(MSBuildProjectName)</AssemblyName>
+	  <AssemblyName>$(MSBuildProjectName)</AssemblyName>
 	  <RootNamespace>Bitvantage</RootNamespace>
 	  <Title>Bitvantage.NumericRange</Title>
-	  <PackageProjectUrl>https://github.com/Bitvantage/NetworkPrimitives</PackageProjectUrl>
+	  <PackageProjectUrl>https://github.com/Bitvantage/NumericRange</PackageProjectUrl>
 	  <PackageIcon>icon.png</PackageIcon>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>network;networking;range</PackageTags>
@@ -17,8 +17,16 @@
 	  <AssemblyVersion>1.0.0</AssemblyVersion>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
-	  <Description>Parse and manulipulate huge quantities of numeric ranges such as 40-70,90,95,300-700,5000</Description>
+	  <Description>Parse and manulipulate huge lists of numeric ranges such as 40-70,90,95,300-700,5000</Description>
+	  <Copyright>Copyright © Michael Crino 2024</Copyright>
+	  <RepositoryUrl>https://github.com/Bitvantage/NumericRange.git</RepositoryUrl>
+	  <Copyright>Copyright © Michael Crino 2024</Copyright>
 
   </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="" />
+		<None Include="../icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
 
 </Project>
