@@ -1,5 +1,5 @@
 # Bitvantage.NumericRange
-Parse and manulipulate huge lists of numeric ranges such as 40-70,90,95,300-700,5000.
+Parse and manipulate huge lists of numeric ranges such as 40-70,90,95,300-700,5000.
 
 ## Installing via NuGet Package Manager
 ```
