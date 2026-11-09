@@ -232,7 +232,7 @@ public partial class NumericRange
     /// Neither set is changed. Same as the <c>|</c> operator.
     /// </summary>
     /// <remarks>
-    /// Because this method is defined on the class, <c>a.Union(b)</c> calls it instead of the LINQ extension method with the same name.
+    /// Because this method is defined on the class, <c>first.Union(second)</c> calls it instead of the LINQ extension method with the same name.
     /// LINQ would treat each range as a single item and compare whole ranges, which gives the wrong values for overlapping ranges.
     /// </remarks>
     /// <param name="other">The set to combine with.</param>
@@ -254,7 +254,7 @@ public partial class NumericRange
     /// Neither set is changed. Same as the <c>&amp;</c> operator.
     /// </summary>
     /// <remarks>
-    /// Because this method is defined on the class, <c>a.Intersect(b)</c> calls it instead of the LINQ extension method with the same name.
+    /// Because this method is defined on the class, <c>first.Intersect(second)</c> calls it instead of the LINQ extension method with the same name.
     /// LINQ would treat each range as a single item and compare whole ranges, which gives the wrong values for overlapping ranges.
     /// </remarks>
     /// <param name="other">The set to intersect with.</param>
@@ -277,7 +277,7 @@ public partial class NumericRange
     /// Neither set is changed. Same as the <c>-</c> operator with a set on the right.
     /// </summary>
     /// <remarks>
-    /// Because this method is defined on the class, <c>a.Except(b)</c> calls it instead of the LINQ extension method with the same name.
+    /// Because this method is defined on the class, <c>first.Except(second)</c> calls it instead of the LINQ extension method with the same name.
     /// LINQ would treat each range as a single item and compare whole ranges, which gives the wrong values for overlapping ranges.
     /// </remarks>
     /// <param name="other">The values to leave out.</param>

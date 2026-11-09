@@ -63,7 +63,7 @@ used.Complement(1024, 65535).Min;		// 1031, the first free port at or above 1024
 ```
 `Union`, `Intersect`, `Except` and `SymmetricExcept` return a new set and leave both sets unchanged. They are called instead of the LINQ methods with the same names, which would compare whole ranges instead of values. `UnionWith`, `IntersectWith`, `ExceptWith` and `SymmetricExceptWith` change the set in place.
 
-The operators group the same way they do for flags enums. `&` binds tighter than `^`, which binds tighter than `|`, so `a | b & c` means `a | (b & c)`. Subtraction binds tighter than all three, so `a - b & c` means `(a - b) & c`. Add parentheses whenever the grouping is not obvious.
+The operators group the same way they do for flags enums. `&` binds tighter than `^`, which binds tighter than `|`, so `first | second & third` means `first | (second & third)`. Subtraction binds tighter than all three, so `first - second & third` means `(first - second) & third`. Add parentheses whenever the grouping is not obvious.
 
 ## Equality
 `Equals` and `SetEquals` compare values, and `GetHashCode` is based on the values, so sets work as dictionary keys. `==` and `!=` compare references, as they do for other classes.
@@ -84,7 +84,7 @@ ports -= 80;							// ports: 22,443
 ports += new ValueRange(8000, 8100);	// ports: 22,443,8000-8100
 ports |= NumericRange.Parse("3389");	// ports: 22,443,3389,8000-8100
 ```
-In-place `+=`, `-=`, `&=`, `|=` and `^=` require C# 14 or later. Older compilers treat `x += y` as `x = x + y`, which gives the same result but copies the whole set each time, so it is much slower on large sets.
+In-place `+=`, `-=`, `&=`, `|=` and `^=` require C# 14 or later. Older compilers treat `range += value` as `range = range + value`, which gives the same result but copies the whole set each time, so it is much slower on large sets.
 
 ## Creating sets
 ```csharp

@@ -22,12 +22,12 @@ namespace Bitvantage;
 // The set operators call the named methods Union, Intersect, Except, SymmetricExcept and Complement,
 // so languages without operator overloading can use the same operations.
 // Compound assignment operators (+=, -=, &=, |=, ^=) use the C# 14 instance operator syntax and change the set in place,
-// so x += 5 costs the same as x.Add(5). Code compiled with C# 13 or earlier, or written in another .NET language,
-// treats x += 5 as x = x + 5 instead, which gives the same result by copying the set.
+// so range += 5 costs the same as range.Add(5). Code compiled with C# 13 or earlier, or written in another .NET language,
+// treats range += 5 as range = range + 5 instead, which gives the same result by copying the set.
 //
 // The set operators are the ones C# uses for flags enums, with the same meanings and the same grouping:
-// & binds tighter than ^, which binds tighter than |, so a | b & c means a | (b & c).
-// Two sets are combined with | rather than +, because C# ranks + above &, so a + b & c would mean (a + b) & c.
+// & binds tighter than ^, which binds tighter than |, so first | second & third means first | (second & third).
+// Two sets are combined with | rather than +, because C# ranks + above &, so first + second & third would mean (first + second) & third.
 // + and += add a single value or a ValueRange, and - and -= remove them, the way += and -= add and remove event handlers.
 //
 // == and != are deliberately not overloaded. NumericRange is a mutable class, and C# developers expect == on a class
@@ -125,7 +125,7 @@ public partial class NumericRange
     /// Same as <see cref="Union"/>.
     /// </summary>
     /// <remarks>
-    /// As with flags enums, <c>|</c> binds more loosely than <c>&amp;</c> and <c>^</c>, so <c>a | b &amp; c</c> means <c>a | (b &amp; c)</c>.
+    /// As with flags enums, <c>|</c> binds more loosely than <c>&amp;</c> and <c>^</c>, so <c>first | second &amp; third</c> means <c>first | (second &amp; third)</c>.
     /// </remarks>
     /// <param name="left">The first set. It is not changed.</param>
     /// <param name="right">The second set. It is not changed.</param>
