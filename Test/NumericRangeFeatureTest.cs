@@ -97,13 +97,13 @@ namespace Test
         public void Equality()
         {
             var range = new ValueRange(1, 5);
-            var same = new ValueRange(1, 5);
-            ValueRange single = 7;
+            var identicalRange = new ValueRange(1, 5);
+            ValueRange singleValueRange = 7;
 
-            Assert.That(range, Is.EqualTo(same));
-            Assert.That(range == same, Is.True);
+            Assert.That(range, Is.EqualTo(identicalRange));
+            Assert.That(range == identicalRange, Is.True);
             Assert.That(range, Is.Not.EqualTo(new ValueRange(1, 6)));
-            Assert.That(single, Is.EqualTo(new ValueRange(7, 7)));
+            Assert.That(singleValueRange, Is.EqualTo(new ValueRange(7, 7)));
         }
     }
 
@@ -240,28 +240,28 @@ namespace Test
         [Test]
         public void OperatorsGroupLikeFlagsEnums()
         {
-            var a = NumericRange.Parse("1-10");
-            var b = NumericRange.Parse("20-30");
-            var c = NumericRange.Parse("5-25");
+            var lowRange = NumericRange.Parse("1-10");
+            var highRange = NumericRange.Parse("20-30");
+            var middleRange = NumericRange.Parse("5-25");
 
             // & binds tighter than ^, which binds tighter than |, the same as for flags enums
-            Assert.That((a | b & c).ToString(), Is.EqualTo((a | (b & c)).ToString()));
-            Assert.That((a | b & c).ToString(), Is.EqualTo("1-10,20-25"));
-            Assert.That((a | b ^ c).ToString(), Is.EqualTo((a | (b ^ c)).ToString()));
-            Assert.That((a ^ b & c).ToString(), Is.EqualTo((a ^ (b & c)).ToString()));
-            Assert.That((a - b & c).ToString(), Is.EqualTo(((a - b) & c).ToString()));
+            Assert.That((lowRange | highRange & middleRange).ToString(), Is.EqualTo((lowRange | (highRange & middleRange)).ToString()));
+            Assert.That((lowRange | highRange & middleRange).ToString(), Is.EqualTo("1-10,20-25"));
+            Assert.That((lowRange | highRange ^ middleRange).ToString(), Is.EqualTo((lowRange | (highRange ^ middleRange)).ToString()));
+            Assert.That((lowRange ^ highRange & middleRange).ToString(), Is.EqualTo((lowRange ^ (highRange & middleRange)).ToString()));
+            Assert.That((lowRange - highRange & middleRange).ToString(), Is.EqualTo(((lowRange - highRange) & middleRange).ToString()));
 
             // the same expression on a flags enum groups the same way
-            Assert.That(Ports.A | Ports.B & Ports.C, Is.EqualTo(Ports.A | (Ports.B & Ports.C)));
-            Assert.That(Ports.A | Ports.B & Ports.C, Is.Not.EqualTo((Ports.A | Ports.B) & Ports.C));
+            Assert.That(Ports.Ssh | Ports.Http & Ports.Https, Is.EqualTo(Ports.Ssh | (Ports.Http & Ports.Https)));
+            Assert.That(Ports.Ssh | Ports.Http & Ports.Https, Is.Not.EqualTo((Ports.Ssh | Ports.Http) & Ports.Https));
         }
 
         [Flags]
         private enum Ports
         {
-            A = 1,
-            B = 2,
-            C = 4,
+            Ssh = 1,
+            Http = 2,
+            Https = 4,
         }
 
         [Test]
@@ -552,19 +552,19 @@ namespace Test
             Assert.That(TryParseAs<NumericRange>("x", out _), Is.False);
         }
 
-        private static T ParseAs<T>(string text) where T : IParsable<T>
+        private static TParsable ParseAs<TParsable>(string text) where TParsable : IParsable<TParsable>
         {
-            return T.Parse(text, null);
+            return TParsable.Parse(text, null);
         }
 
-        private static T ParseSpanAs<T>(string text) where T : ISpanParsable<T>
+        private static TParsable ParseSpanAs<TParsable>(string text) where TParsable : ISpanParsable<TParsable>
         {
-            return T.Parse(text.AsSpan(), null);
+            return TParsable.Parse(text.AsSpan(), null);
         }
 
-        private static bool TryParseAs<T>(string text, out T? result) where T : IParsable<T>
+        private static bool TryParseAs<TParsable>(string text, out TParsable? result) where TParsable : IParsable<TParsable>
         {
-            return T.TryParse(text, null, out result);
+            return TParsable.TryParse(text, null, out result);
         }
 
         private record Settings(NumericRange AllowedPorts);

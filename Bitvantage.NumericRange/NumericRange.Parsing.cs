@@ -121,24 +121,24 @@ public partial class NumericRange : ISpanParsable<NumericRange>
     // The IParsable and ISpanParsable members let generic code, ASP.NET Core minimal APIs and other frameworks parse a NumericRange.
     // They are explicit because the format provider is not used: the format is always ASCII digits, commas and dashes.
 
-    static NumericRange IParsable<NumericRange>.Parse(string s, IFormatProvider? provider)
+    static NumericRange IParsable<NumericRange>.Parse(string text, IFormatProvider? provider)
     {
-        return Parse(s);
+        return Parse(text);
     }
 
-    static bool IParsable<NumericRange>.TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out NumericRange result)
+    static bool IParsable<NumericRange>.TryParse([NotNullWhen(true)] string? text, IFormatProvider? provider, [MaybeNullWhen(false)] out NumericRange result)
     {
-        return TryParse(s, out result);
+        return TryParse(text, out result);
     }
 
-    static NumericRange ISpanParsable<NumericRange>.Parse(ReadOnlySpan<char> s, IFormatProvider? provider)
+    static NumericRange ISpanParsable<NumericRange>.Parse(ReadOnlySpan<char> text, IFormatProvider? provider)
     {
-        return Parse(s);
+        return Parse(text);
     }
 
-    static bool ISpanParsable<NumericRange>.TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, [MaybeNullWhen(false)] out NumericRange result)
+    static bool ISpanParsable<NumericRange>.TryParse(ReadOnlySpan<char> text, IFormatProvider? provider, [MaybeNullWhen(false)] out NumericRange result)
     {
-        return TryParse(s, out result);
+        return TryParse(text, out result);
     }
 
     // Parses text into result one item at a time. On failure, error describes the problem and its position.

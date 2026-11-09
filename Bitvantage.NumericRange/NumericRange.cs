@@ -70,7 +70,7 @@ public partial class NumericRange : IEnumerable<ValueRange>, IEquatable<NumericR
 {
     // Orders ranges by start value only. Ranges in the set never overlap, so the start value identifies a range,
     // and a single-value probe such as new ValueRange(x) finds ranges by where they start.
-    private static readonly IComparer<ValueRange> StartValueComparer = Comparer<ValueRange>.Create((x, y) => x.Start.CompareTo(y.Start));
+    private static readonly IComparer<ValueRange> StartValueComparer = Comparer<ValueRange>.Create((firstRange, secondRange) => firstRange.Start.CompareTo(secondRange.Start));
 
     // Invariant: the ranges are sorted, never overlap, and never touch.
     // Two ranges such as 10-20 and 21-30 are always merged into 10-30.
@@ -504,13 +504,13 @@ public partial class NumericRange : IEnumerable<ValueRange>, IEquatable<NumericR
     }
 
     /// <summary>
-    /// Returns whether <paramref name="obj"/> is a <see cref="NumericRange"/> that holds exactly the same values as this set.
+    /// Returns whether <paramref name="other"/> is a <see cref="NumericRange"/> that holds exactly the same values as this set.
     /// </summary>
-    /// <param name="obj">The object to compare with.</param>
-    /// <returns><see langword="true"/> if <paramref name="obj"/> is a set with the same values.</returns>
-    public override bool Equals(object? obj)
+    /// <param name="other">The object to compare with.</param>
+    /// <returns><see langword="true"/> if <paramref name="other"/> is a set with the same values.</returns>
+    public override bool Equals(object? other)
     {
-        return Equals(obj as NumericRange);
+        return Equals(other as NumericRange);
     }
 
     /// <summary>
