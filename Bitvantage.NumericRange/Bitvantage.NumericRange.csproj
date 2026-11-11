@@ -1,53 +1,63 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <LangVersion>14</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Bitvantage</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
 
-	  <AssemblyName>$(MSBuildProjectName)</AssemblyName>
-	  <RootNamespace>Bitvantage</RootNamespace>
-	  <Title>Bitvantage.NumericRange</Title>
-	  <PackageProjectUrl>https://github.com/Bitvantage/NumericRange</PackageProjectUrl>
-	  <PackageIcon>icon.png</PackageIcon>
-	  <RepositoryType>git</RepositoryType>
-	  <PackageTags>network;networking;range</PackageTags>
-	  <VersionPrefix>2.0.0</VersionPrefix>
-	  <FileVersion>2.0.0</FileVersion>
-	  <AssemblyVersion>2.0.0</AssemblyVersion>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
-	  <Description>Parse and manipulate huge lists of numeric ranges such as 40-70,90,95,300-700,5000</Description>
-	  <Copyright>Copyright © Michael Crino 2024</Copyright>
-	  <RepositoryUrl>https://github.com/Bitvantage/NumericRange.git</RepositoryUrl>
-	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  <!-- Package metadata -->
+  <PropertyGroup>
+    <Version>2.0.0</Version>
+    <Authors>Michael Crino</Authors>
+    <Company>Bitvantage</Company>
+    <Copyright>Copyright © Michael Crino 2024-2026</Copyright>
+    <Description>A set of ulong values stored as sorted, non-overlapping ranges. Parses and prints lists such as 40-70,90,95,300-700,5000, with O(log n) lookup, add and remove, set operations, JSON and configuration binding, and Native AOT support.</Description>
+    <PackageTags>range;ranges;interval;set;numeric;ulong;parse;port-range;aot;json</PackageTags>
+    <PackageProjectUrl>https://github.com/Bitvantage/NumericRange</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Bitvantage/NumericRange.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/Bitvantage/NumericRange/releases/tag/v$(Version)</PackageReleaseNotes>
+  </PropertyGroup>
 
+  <!-- Package validation, so a pack fails if the public API changes in a way that breaks consumers -->
+  <PropertyGroup>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <!-- Compares the public API against the last published version. Uncomment once 2.0.0 is on nuget.org,
+         because validation downloads the baseline package and fails if it does not exist. -->
+    <!-- <PackageValidationBaselineVersion>2.0.0</PackageValidationBaselineVersion> -->
   </PropertyGroup>
 
   <!-- Native AOT and trimming -->
   <PropertyGroup>
-	  <!-- Declares the library safe for Native AOT and trimming. Turns on the AOT, trim and single-file analyzers,
-	       so code that would break in an AOT app fails the build, and marks the assembly as trimmable. -->
-	  <IsAotCompatible>true</IsAotCompatible>
+    <!-- Declares the library safe for Native AOT and trimming. Turns on the AOT, trim and single-file analyzers,
+         so code that would break in an AOT app fails the build, and marks the assembly as trimmable. -->
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 
   <!-- Source Link, so debuggers can step into the exact source of a published package -->
   <PropertyGroup>
-	  <!-- The .NET SDK includes Source Link for GitHub, so no package reference is needed. It records the commit and the
-	       git remote of the build in the PDB, and in the package's repository metadata. -->
-	  <PublishRepositoryUrl>true</PublishRepositoryUrl>
-	  <!-- Embeds generated files such as global usings in the PDB, because they are not in the repository. -->
-	  <EmbedUntrackedSources>true</EmbedUntrackedSources>
-	  <!-- Publishes the PDB as a .snupkg symbol package next to the .nupkg; nuget.org serves it to debuggers. -->
-	  <IncludeSymbols>true</IncludeSymbols>
-	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	  <!-- Makes CI builds reproducible by removing local paths from the binaries. Left off locally so local debugging keeps full paths. -->
-	  <ContinuousIntegrationBuild Condition="'$(CI)' == 'true' Or '$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
+    <!-- The .NET SDK includes Source Link for GitHub, so no package reference is needed. It records the commit and the
+         git remote of the build in the PDB, and in the package's repository metadata. -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Embeds generated files such as global usings in the PDB, because they are not in the repository. -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Publishes the PDB as a .snupkg symbol package next to the .nupkg; nuget.org serves it to debuggers. -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Makes CI builds reproducible by removing local paths from the binaries. Left off locally so local debugging keeps full paths. -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true' Or '$(TF_BUILD)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="" />
-		<None Include="../icon.png" Pack="true" PackagePath="" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="" />
+    <None Include="../icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
 
 </Project>

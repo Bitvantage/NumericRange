@@ -1,6 +1,6 @@
 ﻿/*
    Bitvantage.NumericRange
-   Copyright (C) 2024 Michael Crino
+   Copyright (C) 2024-2026 Michael Crino
    
    Licensed under the MIT License. See LICENSE.md in the project root
    for the full license text.

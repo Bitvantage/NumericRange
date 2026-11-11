@@ -3,7 +3,11 @@ Parse and manipulate huge lists of numeric ranges such as 40-70,90,95,300-700,50
 
 A `NumericRange` is a set of `ulong` values stored as sorted, non-overlapping ranges. Looking up, adding and removing values takes O(log n) time, where n is the number of ranges, not the number of values, so a set such as `0-18446744073709551615` costs no more than a single value. An addition or removal that merges or removes several existing ranges also pays a small cost for each of them.
 
-## Installing via NuGet Package Manager
+## Installing
+```
+dotnet add package Bitvantage.NumericRange
+```
+Or from the NuGet Package Manager console:
 ```
 PM> NuGet\Install-Package Bitvantage.NumericRange
 ```
