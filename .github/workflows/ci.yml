@@ -6,6 +6,17 @@ on:
     tags: ['v*']
   pull_request:
     branches: [main]
+  # Manual run, for rebuilding a tag deterministically, for example to publish a missing symbol package.
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Tag or commit to build. Empty builds the selected branch.
+        required: false
+        default: ''
+      publish:
+        description: Push the packages to nuget.org. Existing versions are skipped.
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -14,6 +25,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ inputs.ref || github.ref }}
 
       - uses: actions/setup-dotnet@v4
         with:
@@ -42,7 +54,7 @@ jobs:
 
   publish:
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.publish)
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -65,5 +77,8 @@ jobs:
         with:
           user: Bitvantage
 
+      # The symbol package is pushed on its own so it still goes up when the main package already exists.
       - name: Push to nuget.org
-        run: dotnet nuget push "artifacts/*.nupkg" --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: |
+          dotnet nuget push "artifacts/*.nupkg" --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push "artifacts/*.snupkg" --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
